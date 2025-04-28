@@ -12,6 +12,12 @@ End Function
 
 Sub AtualizarTudo(Optional ShowOnMacroList As Boolean = False)
 
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+    
+ErrorSection = "Initialization"
+
 Dim temp As Double
 temp = Timer
 
@@ -26,7 +32,9 @@ temp = Timer
     
     ' Otimiza o tempo de execução do código
     OptimizeCodeExecution True
-    
+
+ErrorSection = "SAPSetup"
+
     ' Setup SAP and check if it is running
     Do While Not SetupSAPScripting
         ' Ask the user to initiate SAP or cancel
@@ -37,6 +45,8 @@ temp = Timer
             GoTo Terminate  ' Exit the function or sub
         End If
     Loop
+
+ErrorSection = "WorkbookSearch"
     
     NoProjectReviewFound = True
     
@@ -44,6 +54,7 @@ temp = Timer
     
     ' Loop through all open workbooks
     For Each wb In Workbooks
+ErrorSection = "WorkbookSearchFor-" & wb.Name
         IsProjectReview = False
         
         ' Avoid checking the workbook where this code is running (optional)
@@ -112,14 +123,29 @@ Terminate:
         MsgBox "Project Reviews atualizados com sucesso:" & Join(PEPList, vbCrLf), vbInformation
     End If
     
-    ' Otimiza o tempo de execução do código
-    OptimizeCodeExecution False
-    
     Debug.Print "Atualizar Tudo - Total execution time: "; Timer - temp
     
+CleanExit:
+    ' Ensure that all optimizations are turned back on
+    OptimizeCodeExecution False
+    
+    Exit Sub
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in AtualizarTudo"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Sub
 
 Sub AtualizarMapa(Optional ShowOnMacroList As Boolean = False)
+
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
 
 Dim temp As Double
 temp = Timer
@@ -135,6 +161,8 @@ temp = Timer
     Dim NoProjectReviewFound As Boolean
     Dim response As VbMsgBoxResult
     
+ErrorSection = "SAPSetup"
+
     ' Setup SAP and check if it is running
     Do While Not SetupSAPScripting
         ' Ask the user to initiate SAP or cancel
@@ -146,12 +174,15 @@ temp = Timer
         End If
     Loop
     
+ErrorSection = "WorkbookSearch"
+
     NoProjectReviewFound = True
     
     ReDim PEPList(0)
     
     ' Loop through all open workbooks
     For Each wb In Workbooks
+ErrorSection = "WorkbookSearchFor-" & wb.Name
         IsProjectReview = False
         
         ' Avoid checking the workbook where this code is running (optional)
@@ -208,14 +239,29 @@ Terminate:
         MsgBox "Project Reviews atualizados com sucesso:" & Join(PEPList, vbCrLf), vbInformation
     End If
     
-    ' Otimiza o tempo de execução do código
-    OptimizeCodeExecution False
-    
 Debug.Print "Atualizar Mapa - Total execution time: "; Timer - temp
     
+CleanExit:
+    ' Ensure that all optimizations are turned back on
+    OptimizeCodeExecution False
+    
+    Exit Sub
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in AtualizarMapa"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Sub
 
 Sub AtualizarZTPP092(Optional ShowOnMacroList As Boolean = False)
+
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
 
 Dim temp As Double
 temp = Timer
@@ -231,6 +277,8 @@ temp = Timer
     Dim NoProjectReviewFound As Boolean
     Dim response As VbMsgBoxResult
     
+ErrorSection = "SAPSetup"
+
     ' Setup SAP and check if it is running
     Do While Not SetupSAPScripting
         ' Ask the user to initiate SAP or cancel
@@ -242,12 +290,15 @@ temp = Timer
         End If
     Loop
     
+ErrorSection = "WorkbookSearch"
+    
     NoProjectReviewFound = True
     
     ReDim PEPList(0)
     
     ' Loop through all open workbooks
     For Each wb In Workbooks
+ErrorSection = "WorkbookSearchFor-" & wb.Name
         IsProjectReview = False
         
         ' Avoid checking the workbook where this code is running (optional)
@@ -304,14 +355,30 @@ Terminate:
         MsgBox "Project Reviews atualizados com sucesso:" & Join(PEPList, vbCrLf), vbInformation
     End If
     
-    ' Otimiza o tempo de execução do código
-    OptimizeCodeExecution False
     
 Debug.Print "Atualizar ZTPP02 - Total execution time: "; Timer - temp
     
+CleanExit:
+    ' Ensure that all optimizations are turned back on
+    OptimizeCodeExecution False
+    
+    Exit Sub
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in AtualizarZTPP092"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Sub
 
 Sub AtualizarCJI5(Optional ShowOnMacroList As Boolean = False)
+
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
 
 Dim temp As Double
 temp = Timer
@@ -325,7 +392,9 @@ temp = Timer
     Dim IsProjectReview As Boolean
     Dim NoProjectReviewFound As Boolean
     Dim response As VbMsgBoxResult
-    
+
+ErrorSection = "SAPSetup"
+
     ' Setup SAP and check if it is running
     Do While Not SetupSAPScripting
         ' Ask the user to initiate SAP or cancel
@@ -337,12 +406,15 @@ temp = Timer
         End If
     Loop
     
+ErrorSection = "WorkbookSearch"
+    
     NoProjectReviewFound = True
     
     ReDim PEPList(0)
-    
+
     ' Loop through all open workbooks
     For Each wb In Workbooks
+ErrorSection = "WorkbookSearchFor-" & wb.Name
         IsProjectReview = False
         
         ' Avoid checking the workbook where this code is running (optional)
@@ -393,14 +465,29 @@ Terminate:
         MsgBox "Project Reviews atualizados com sucesso:" & Join(PEPList, vbCrLf), vbInformation
     End If
     
-    ' Otimiza o tempo de execução do código
-    OptimizeCodeExecution False
-    
 Debug.Print "Atualizar CJI5 - Total execution time: "; Timer - temp
     
+CleanExit:
+    ' Ensure that all optimizations are turned back on
+    OptimizeCodeExecution False
+    
+    Exit Sub
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in AtualizarCJI5"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Sub
 
 Sub AtualizarCJI3(Optional ShowOnMacroList As Boolean = False)
+
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
 
 Dim temp As Double
 temp = Timer
@@ -415,6 +502,8 @@ temp = Timer
     Dim NoProjectReviewFound As Boolean
     Dim response As VbMsgBoxResult
     
+ErrorSection = "SAPSetup"
+
     ' Setup SAP and check if it is running
     Do While Not SetupSAPScripting
         ' Ask the user to initiate SAP or cancel
@@ -430,8 +519,11 @@ temp = Timer
     
     ReDim PEPList(0)
     
+ErrorSection = "WorkbookSearch"
+
     ' Loop through all open workbooks
     For Each wb In Workbooks
+ErrorSection = "WorkbookSearchFor-" & wb.Name
         IsProjectReview = False
         
         ' Avoid checking the workbook where this code is running (optional)
@@ -483,14 +575,29 @@ Terminate:
         MsgBox "Project Reviews atualizados com sucesso:" & Join(PEPList, vbCrLf), vbInformation
     End If
     
-    ' Otimiza o tempo de execução do código
-    OptimizeCodeExecution False
-    
 Debug.Print "Atualizar CJI3 - Total execution time: "; Timer - temp
     
+CleanExit:
+    ' Ensure that all optimizations are turned back on
+    OptimizeCodeExecution False
+    
+    Exit Sub
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in AtualizarCJI3"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Sub
 
 Function UpdateMapa(wb As Workbook) As Boolean
+
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
 
 Dim temp As Double
 temp = Timer
@@ -520,7 +627,7 @@ Debug.Print "UpdateMapa Start"
 
     On Error Resume Next
     Set wsMapa = wb.Sheets("Mapa de Suprimentos")
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
 
     If wsMapa Is Nothing Then
         UpdateMapa = False
@@ -550,6 +657,8 @@ Debug.Print "UpdateMapa Start"
 Debug.Print "Setup time: " & Timer - temp
 temp = Timer
 
+ErrorSection = "SAPNavigation"
+
     ' SAP Navigation and Export
     session.findById("wnd[0]/tbar[0]/okcd").Text = "/ncs11"
     session.findById("wnd[0]").sendVKey 0
@@ -565,7 +674,7 @@ temp = Timer
     If session.findById("wnd[1]/usr/ctxtDY_FILENAME") Is Nothing Then
         session.findById("wnd[1]/tbar[0]/btn[0]").press
     End If
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
 
     exportWbName = Replace(session.findById("wnd[1]/usr/ctxtDY_FILENAME").Text, "export", exportWbName)
     exportWbPath = session.findById("wnd[1]/usr/ctxtDY_PATH").Text
@@ -576,6 +685,8 @@ temp = Timer
 
 Debug.Print "SAP nav: " & Timer - temp
 temp = Timer
+
+ErrorSection = "ExportWorkbook"
 
     ' Wait for a new workbook to appear
     Do
@@ -603,6 +714,8 @@ temp = Timer
         Set exportWb = Workbooks.Open(exportWbPath & "\" & exportWbName)
     End If
 
+ErrorSection = "ExportFormating"
+
     Set exportWs = exportWb.Sheets(1)
     
     ' Find exportWs last row and save to exportWsLR (using column C as reference)
@@ -618,6 +731,8 @@ temp = Timer
     
 Debug.Print "Export sheet treatment: " & Timer - temp
 temp = Timer
+
+ErrorSection = "PasteData"
 
     ' Clear, copy and paste values and formats without breaking formulas and headers
     If wsMapa.AutoFilterMode Then wsMapa.AutoFilter.ShowAllData ' Clear any applied filters
@@ -640,9 +755,10 @@ temp = Timer
     wsMapa.Range("A" & wsMapaCurrentRow & ":C" & wsMapaLR).Font.Strikethrough = True
     
     Do While exportWsCurrentRow <= exportWsLR
-        
+ErrorSection = "PasteDataWhile-" & exportWsCurrentRow
         ' Identify group start in exportWs: a row with 0 in column C
         If Trim(exportWs.Cells(exportWsCurrentRow, "E").Value) = "0" Or exportWs.Cells(exportWsCurrentRow, "E").Value = 0 Then
+ErrorSection = "ExportLimits-" & exportWsCurrentRow
             groupExportStart = exportWsCurrentRow
             groupExportEnd = groupExportStart
             ' Determine the end of this exportWs group:
@@ -651,6 +767,7 @@ temp = Timer
             Loop
             groupExportCount = groupExportEnd - groupExportStart + 1
             
+ErrorSection = "MatchGroup-" & exportWsCurrentRow
             ' Look for a matching group in wsMapa
             wsMapaGroupFound = False
             For wsMapaCurrentRow = lastGroupMapaEnd + 1 To wsMapaLR
@@ -668,12 +785,14 @@ temp = Timer
             Next wsMapaCurrentRow
             
             If Not wsMapaGroupFound Then
+ErrorSection = "CreateGroup-" & exportWsCurrentRow
                 ' Define the start
                 wsMapaCurrentRow = lastGroupMapaEnd
                 exportWsCurrentRow = groupExportStart
                 groupMapaStart = lastGroupMapaEnd + 1
             
                 Do While exportWsCurrentRow <= groupExportEnd
+ErrorSection = "CreateGroupWhile-" & exportWsCurrentRow
                     ' They are different: insert a row below copying the existing row and fill the new row green
                     wsMapa.Rows(wsMapaCurrentRow + 1).Insert Shift:=xlDown
                     ' Option 1: Copy the original row as base
@@ -692,6 +811,7 @@ temp = Timer
                     exportWsCurrentRow = exportWsCurrentRow + 1
                 Loop
             ElseIf groupExportCount = 1 And groupExportCount < groupMapaCount Then
+ErrorSection = "IfExportGroupSmaller-" & exportWsCurrentRow
                 ' Reorder the groups to keep the same order as exportWs
                 If groupMapaStart <> lastGroupMapaEnd + 1 Then
                     wsMapa.Rows(groupMapaStart & ":" & groupMapaEnd).Cut
@@ -723,6 +843,7 @@ temp = Timer
                 wsMapaCurrentRow = wsMapaCurrentRow + 1
                 exportWsCurrentRow = exportWsCurrentRow + 1
             Else
+ErrorSection = "IfExportGroupBigger-" & exportWsCurrentRow
                 ' Reorder the groups to keep the same order as exportWs
                 If groupMapaStart <> lastGroupMapaEnd + 1 Then
                     wsMapa.Rows(groupMapaStart & ":" & groupMapaEnd).Cut
@@ -740,6 +861,7 @@ temp = Timer
                 ' Compare line by line the values from wsMapa column A and C and exportWs column C and E.
                 ' Assumption: wsMapa data starts at row 5 and exportWs data starts at row 2.
                 Do While wsMapaCurrentRow <= groupMapaEnd
+ErrorSection = "IfExportGroupBiggerWhile-" & exportWsCurrentRow
                     If exportWsCurrentRow <= groupExportEnd Then
                         ' Compare wsMapa col A with exportWs col C and wsMapa col C with exportWs col E
                         If Trim(wsMapa.Cells(wsMapaCurrentRow, "A").Value) <> Trim(exportWs.Cells(exportWsCurrentRow, "C").Value) Or _
@@ -772,7 +894,7 @@ temp = Timer
                 
                 ' Continue adding inexistent values if groupMapaCount < groupExportCount
                 Do While exportWsCurrentRow <= groupExportEnd
-                
+ErrorSection = "IfExportSheetBiggerWhile-" & exportWsCurrentRow
                     wsMapaCurrentRow = groupMapaEnd
                     If exportWsCurrentRow <= groupExportEnd Then
                         ' They are different: insert a row below copying the existing row and fill the new row green
@@ -808,6 +930,8 @@ temp = Timer
         lastGroupMapaEnd = groupMapaEnd
     Loop
 
+ErrorSection = "Ending"
+
     UpdateMapa = True
 
     ' Close the exported workbook without saving changes
@@ -816,7 +940,7 @@ temp = Timer
     ' Delete the exported workbook file
     On Error Resume Next ' In case the file is not found or cannot be deleted
     Kill exportWbPath & "\" & exportWbName
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
 
     ' Cleanup
     Application.CutCopyMode = False
@@ -824,9 +948,25 @@ temp = Timer
 Debug.Print "Project Review Mapa de Suprimentos Sheet update: " & Timer - temp
 temp = Timer
 
+CleanExit:
+    
+    Exit Function
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in UpdateMapa"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Function
 
 Function UpdateZTPP092(wb As Workbook, DR As String) As Boolean
+
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
 
 Dim temp As Double
 temp = Timer
@@ -855,7 +995,7 @@ Debug.Print "UpdateZTPP092 Start"
     
     On Error Resume Next
     Set wsZTPP092 = wb.Sheets("ZTPP092")
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     If wsZTPP092 Is Nothing Then
         ' If the sheet does not exist, create it as the last sheet
@@ -874,6 +1014,8 @@ Debug.Print "UpdateZTPP092 Start"
 
 Debug.Print "Setup time: " & Timer - temp
 temp = Timer
+
+ErrorSection = "SAPNavigation"
 
     ' SAP Navigation and Export
     session.findById("wnd[0]/tbar[0]/okcd").Text = "/nZTPP092"
@@ -919,7 +1061,7 @@ temp = Timer
     If session.findById("wnd[1]/usr/ctxtDY_FILENAME") Is Nothing Then
         session.findById("wnd[1]/tbar[0]/btn[0]").press
     End If
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     exportWbName = Replace(session.findById("wnd[1]/usr/ctxtDY_FILENAME").Text, "export", exportWbName)
     exportWbPath = session.findById("wnd[1]/usr/ctxtDY_PATH").Text
@@ -929,6 +1071,8 @@ temp = Timer
 
 Debug.Print "SAP nav: " & Timer - temp
 temp = Timer
+
+ErrorSection = "ExportWorkbook"
 
     ' Wait for a new workbook to appear
     Do
@@ -955,6 +1099,8 @@ temp = Timer
         Set exportWb = Workbooks.Open(exportWbPath & "\" & exportWbName)
     End If
     
+ErrorSection = "ExportFormating"
+
     Set exportWs = exportWb.Sheets(1)
     
     For Each Row In exportWs.Rows
@@ -984,6 +1130,8 @@ temp = Timer
 Debug.Print "Export sheet treatment: " & Timer - temp
 temp = Timer
     
+ErrorSection = "PasteData"
+
     ' Clear, copy and paste values and formats without breaking formulas and headers
     If wsZTPP092.AutoFilterMode Then wsZTPP092.AutoFilter.ShowAllData ' Clear any applied filters
     wsZTPP092.UsedRange.ClearContents
@@ -1001,7 +1149,7 @@ temp = Timer
     ' Delete the workbook file
     On Error Resume Next ' In case the file is not found or cannot be deleted
     Kill exportWbPath & "\" & exportWbName
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     ' Cleanup
     Application.CutCopyMode = False
@@ -1011,9 +1159,25 @@ temp = Timer
 Debug.Print "Project Review ZTPP02 Sheet update: " & Timer - temp
 temp = Timer
     
+CleanExit:
+    
+    Exit Function
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in UpdateZTPP092"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Function
 
 Function UpdateCJI5(wb As Workbook, PEP As String) As Boolean
+
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
 
 Dim temp As Double
 temp = Timer
@@ -1035,7 +1199,7 @@ Debug.Print "UpdateCJI5 Start"
     
     On Error Resume Next
     Set wsCJI5 = wb.Sheets("CJI5 (Compromisso)")
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     ' Check if the "CJI3" sheet exists
     If wsCJI5 Is Nothing Then
@@ -1056,6 +1220,8 @@ Debug.Print "UpdateCJI5 Start"
 Debug.Print "Setup time: " & Timer - temp
 temp = Timer
     
+ErrorSection = "SAPNavigation"
+
     ' SAP Navigation and Export
     session.findById("wnd[0]/tbar[0]/okcd").Text = "/ncji5"
     session.findById("wnd[0]").sendVKey 0
@@ -1063,7 +1229,7 @@ temp = Timer
     On Error Resume Next
     session.findById("wnd[1]/usr/ctxtTCNT-PROF_DB").Text = "000000000001"
     session.findById("wnd[1]").sendVKey 0
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     session.findById("wnd[0]/usr/ctxtCN_PSPNR-LOW").Text = PEP
     session.findById("wnd[0]/usr/ctxtR_OBDAT-LOW").Text = StartDate
@@ -1087,7 +1253,7 @@ temp = Timer
     
     session.findById("wnd[1]/usr/ctxtDY_FILENAME").Text = exportWbName
     session.findById("wnd[1]/tbar[0]/btn[11]").press
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
 
 Debug.Print "SAP nav: " & Timer - temp
 temp = Timer
@@ -1097,7 +1263,9 @@ ErrorHandler:
         CJI5IsEmpty = True
         On Error Resume Next
     End If
-    
+
+ErrorSection = "ExportWorkbook"
+
     ' Wait for a new workbook to appear
     Do
         If CJI5IsEmpty Then
@@ -1136,6 +1304,8 @@ ErrorHandler:
 Debug.Print "Export sheet treatment: " & Timer - temp
 temp = Timer
 
+ErrorSection = "PasteData"
+
     ' Copy data from exportWs to wsCJI5
     If wsCJI5.AutoFilterMode Then wsCJI5.AutoFilter.ShowAllData ' Clear any applied filters
     wsCJI5.UsedRange.ClearContents
@@ -1151,9 +1321,25 @@ temp = Timer
 Debug.Print "Project Review CJI5 Sheet update: " & Timer - temp
 temp = Timer
     
+CleanExit:
+    
+    Exit Function
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in UpdateCJI5"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Function
 
 Function UpdateCJI3(wb As Workbook, PEP As String) As Boolean
+
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
 
 Dim temp As Double
 temp = Timer
@@ -1172,7 +1358,7 @@ Debug.Print "UpdateCJI3 Start"
     
     On Error Resume Next
     Set wsCJI3 = wb.Sheets("CJI3")
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     ' Check if the "CJI3" sheet exists
     If wsCJI3 Is Nothing Then
@@ -1189,6 +1375,8 @@ Debug.Print "UpdateCJI3 Start"
     ' Capture initial workbook count
     wbCount = Application.Workbooks.Count
 
+ErrorSection = "SAPNavigation"
+
 Debug.Print "Setup time: " & Timer - temp
 temp = Timer
 
@@ -1199,7 +1387,7 @@ temp = Timer
     On Error Resume Next
     session.findById("wnd[1]/usr/ctxtTCNT-PROF_DB").Text = "000000000001"
     session.findById("wnd[1]").sendVKey 0
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     ' Clear other fields
     session.findById("wnd[0]/usr/ctxtCN_PROJN-LOW").Text = ""
@@ -1229,7 +1417,7 @@ temp = Timer
     If session.findById("wnd[1]/usr/ctxtDY_FILENAME") Is Nothing Then
         session.findById("wnd[1]/tbar[0]/btn[0]").press
     End If
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     exportWbName = Replace(session.findById("wnd[1]/usr/ctxtDY_FILENAME").Text, "export", exportWbName)
     exportWbPath = session.findById("wnd[1]/usr/ctxtDY_PATH").Text
@@ -1239,6 +1427,8 @@ temp = Timer
 
 Debug.Print "SAP nav: " & Timer - temp
 temp = Timer
+
+ErrorSection = "ExportWorkbook"
 
     ' Wait for a new workbook to appear
     Do
@@ -1273,6 +1463,8 @@ temp = Timer
 Debug.Print "Export sheet treatment: " & Timer - temp
 temp = Timer
     
+ErrorSection = "PasteData"
+
     ' Clear, copy and paste data from exportWs to wsCJI3
     If wsCJI3.AutoFilterMode Then wsCJI3.AutoFilter.ShowAllData ' Clear any applied filters
     wsCJI3.UsedRange.ClearContents
@@ -1292,6 +1484,8 @@ temp = Timer
 Debug.Print "Project Review CJI3 Sheet update: " & Timer - temp
 temp = Timer
 
+ErrorSection = "UpdateComentarios"
+
     UpdateComentarios wb, wsCJI3
     
 Debug.Print "Project Review comments update: " & Timer - temp
@@ -1299,10 +1493,25 @@ temp = Timer
     
     UpdateCJI3 = True
     
-End Function
+CleanExit:
+    
+    Exit Function
 
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in UpdateCJI3"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
+End Function
 Function UpdateComentarios(wb As Workbook, wsCJI3 As Worksheet)
     
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
+
     Dim lastCol As Long, col As Long
     Dim lastRow As Long
     Dim commentRange As Range
@@ -1327,14 +1536,18 @@ Function UpdateComentarios(wb As Workbook, wsCJI3 As Worksheet)
     
     Application.CalculateFull
     
+ErrorSection = "WriteComments"
+
     ' Loop through all columns from L to the last column
     For col = 13 To lastCol  ' Column M = 13
-    
+ErrorSection = "WriteCommentsCol-" & col
         If InStr(1, ws.Cells(headerRow, col).Value, "Comentário", vbTextCompare) > 0 Then
             HeaderRowNotFound = False
             
             ' Loop through each row below the header to apply the formula logic
             For Each cell In ws.Range(ws.Cells(headerRow + 1, col), ws.Cells(lastRow, col))
+ErrorSection = "WriteCommentsColFor-" & cell.Row
+                
                 Dim result As String
                 
                 If cell.Offset(0, -1).Value <> 0 And cell.Value = "" Then
@@ -1369,19 +1582,39 @@ Function UpdateComentarios(wb As Workbook, wsCJI3 As Worksheet)
         MsgBox "Os cabeçalhos do Project Review não estão na linha 20. Verifique a posição e tente novamente.", vbInformation
     End If
     
+CleanExit:
+    
+    Exit Function
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in UpdateComentarios"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Function
 
 ' Custom function to replicate the logic from the formula
 Private Function BuildCommentText(ws As Worksheet, wsCJI3 As Worksheet, dataCell As Range) As String
+
+    ' Enable error handling
+    Dim ErrorSection As String
+    On Error GoTo ErrorHandler
+
+ErrorSection = "Initialization"
+
     Dim output As String
     Dim searchRange As Range, matchCell As Range
     
     Set searchRange = wsCJI3.Range("B:B")
-    
+
+ErrorSection = "WriteComment"
+
     If dataCell.Row < 42 And ws.Cells(dataCell.Row, 3) <> "" Then
     
         ' Loop through the range to build the combined text
         For Each matchCell In searchRange
+ErrorSection = "WriteCommentIfFor-" & matchCell.Row
             If matchCell.Offset(1, 0).Value = "" And matchCell.Value = "" Then
                 Exit For
             End If
@@ -1403,6 +1636,7 @@ Private Function BuildCommentText(ws As Worksheet, wsCJI3 As Worksheet, dataCell
     
         ' Loop through the range to build the combined text
         For Each matchCell In searchRange
+ErrorSection = "WriteCommentElseFor-" & matchCell.Row
             If matchCell.Offset(1, 0).Value = "" And matchCell.Value = "" Then
                 Exit For
             End If
@@ -1422,6 +1656,17 @@ Private Function BuildCommentText(ws As Worksheet, wsCJI3 As Worksheet, dataCell
     End If
     
     BuildCommentText = output
+
+CleanExit:
+    
+    Exit Function
+
+ErrorHandler:
+    ' Log and diagnose the error using Erl to show the last executed line number
+    MsgBox "Error " & Err.Number & " at section " & ErrorSection & ": " & Err.Description, vbCritical, "Error in BuildCommentText"
+    
+    ' Resume cleanup to ensure that settings are restored
+    Resume CleanExit
 End Function
 
 Function SetupSAPScripting() As Boolean
@@ -1429,7 +1674,7 @@ Function SetupSAPScripting() As Boolean
     ' Create the SAP GUI scripting engine object
     On Error Resume Next
     Set SapGuiAuto = GetObject("SAPGUI")
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     If Not IsObject(SapGuiAuto) Or SapGuiAuto Is Nothing Then
         SetupSAPScripting = False
@@ -1438,7 +1683,7 @@ Function SetupSAPScripting() As Boolean
     
     On Error Resume Next
     Set SAPApplication = SapGuiAuto.GetScriptingEngine
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     If Not IsObject(SAPApplication) Or SAPApplication Is Nothing Then
         SetupSAPScripting = False
@@ -1449,7 +1694,7 @@ Function SetupSAPScripting() As Boolean
     On Error GoTo ErrorHandler
     Set Connection = SAPApplication.Children(0)
     Set session = Connection.Children(0)
-    On Error GoTo 0
+    On Error GoTo ErrorHandler
     
     SetupSAPScripting = True
     
