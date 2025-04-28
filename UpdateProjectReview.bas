@@ -156,23 +156,26 @@ temp = Timer
         
         ' Avoid checking the workbook where this code is running (optional)
         If wb.Name <> ThisWorkbook.Name Then
-            ' Reference to the first worksheet (change as needed for specific sheets)
-            Set ws = wb.Sheets(1)  ' or Loop through all sheets if needed
-            
-            ' Check if E2 value is "PEP"
-            If UCase(ws.Range("E2").Value) = "PEP" Then
-                IsProjectReview = True
-                PEP = ws.Range("E3").Value
+            ' Loop through all sheets in the workbook
+            For Each ws In wb.Sheets
+                If InStr(1, LCase(ws.Name), "project review", vbTextCompare) > 0 Then
                 
-                ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
-                PEPList(UBound(PEPList)) = PEP
-            End If
-            
-            ' Check if G2 value is "DR"
-            If UCase(ws.Range("G2").Value) = "DR" Then
-                IsProjectReview = True
-                DR = ws.Range("G3").Value
-            End If
+                    ' Check if E2 value is "PEP"
+                    If UCase(ws.Range("E2").Value) = "PEP" Then
+                        IsProjectReview = True
+                        PEP = ws.Range("E3").Value
+                        
+                        ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
+                        PEPList(UBound(PEPList)) = PEP
+                    End If
+                    
+                    ' Check if G2 value is "DR"
+                    If UCase(ws.Range("G2").Value) = "DR" Then
+                        IsProjectReview = True
+                        DR = ws.Range("G3").Value
+                    End If
+                End If
+            Next ws
         End If
     
         If Not IsProjectReview Then
@@ -249,23 +252,26 @@ temp = Timer
         
         ' Avoid checking the workbook where this code is running (optional)
         If wb.Name <> ThisWorkbook.Name Then
-            ' Reference to the first worksheet (change as needed for specific sheets)
-            Set ws = wb.Sheets(1)  ' or Loop through all sheets if needed
+            ' Loop through all sheets in the workbook
+            For Each ws In wb.Sheets
+                If InStr(1, LCase(ws.Name), "project review", vbTextCompare) > 0 Then
             
-            ' Check if E2 value is "PEP"
-            If UCase(ws.Range("E2").Value) = "PEP" Then
-                IsProjectReview = True
-                PEP = ws.Range("E3").Value
-                
-                ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
-                PEPList(UBound(PEPList)) = PEP
-            End If
-            
-            ' Check if G2 value is "DR"
-            If UCase(ws.Range("G2").Value) = "DR" Then
-                IsProjectReview = True
-                DR = ws.Range("G3").Value
-            End If
+                    ' Check if E2 value is "PEP"
+                    If UCase(ws.Range("E2").Value) = "PEP" Then
+                        IsProjectReview = True
+                        PEP = ws.Range("E3").Value
+                        
+                        ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
+                        PEPList(UBound(PEPList)) = PEP
+                    End If
+                    
+                    ' Check if G2 value is "DR"
+                    If UCase(ws.Range("G2").Value) = "DR" Then
+                        IsProjectReview = True
+                        DR = ws.Range("G3").Value
+                    End If
+                End If
+            Next ws
         End If
     
         If Not IsProjectReview Then
@@ -341,17 +347,20 @@ temp = Timer
         
         ' Avoid checking the workbook where this code is running (optional)
         If wb.Name <> ThisWorkbook.Name Then
-            ' Reference to the first worksheet (change as needed for specific sheets)
-            Set ws = wb.Sheets(1)  ' or Loop through all sheets if needed
+            ' Loop through all sheets in the workbook
+            For Each ws In wb.Sheets
+                If InStr(1, LCase(ws.Name), "project review", vbTextCompare) > 0 Then
             
-            ' Check if E2 value is "PEP"
-            If UCase(ws.Range("E2").Value) = "PEP" Then
-                IsProjectReview = True
-                PEP = ws.Range("E3").Value
-                
-                ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
-                PEPList(UBound(PEPList)) = PEP
-            End If
+                    ' Check if E2 value is "PEP"
+                    If UCase(ws.Range("E2").Value) = "PEP" Then
+                        IsProjectReview = True
+                        PEP = ws.Range("E3").Value
+                        
+                        ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
+                        PEPList(UBound(PEPList)) = PEP
+                    End If
+                End If
+            Next ws
         End If
     
         If Not IsProjectReview Then
@@ -427,17 +436,20 @@ temp = Timer
         
         ' Avoid checking the workbook where this code is running (optional)
         If wb.Name <> ThisWorkbook.Name Then
-            ' Reference to the first worksheet (change as needed for specific sheets)
-            Set ws = wb.Sheets(1)  ' or Loop through all sheets if needed
-            
-            ' Check if E2 value is "PEP"
-            If UCase(ws.Range("E2").Value) = "PEP" Then
-                IsProjectReview = True
-                PEP = ws.Range("E3").Value
+            ' Loop through all sheets in the workbook
+            For Each ws In wb.Sheets
+                If InStr(1, LCase(ws.Name), "project review", vbTextCompare) > 0 Then
                 
-                ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
-                PEPList(UBound(PEPList)) = PEP
-            End If
+                    ' Check if E2 value is "PEP"
+                    If UCase(ws.Range("E2").Value) = "PEP" Then
+                        IsProjectReview = True
+                        PEP = ws.Range("E3").Value
+                        
+                        ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
+                        PEPList(UBound(PEPList)) = PEP
+                    End If
+                End If
+            Next ws
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
