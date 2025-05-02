@@ -86,6 +86,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
+            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -126,6 +127,9 @@ Terminate:
     Debug.Print "Atualizar Tudo - Total execution time: "; Timer - temp
     
 CleanExit:
+
+    Application.StatusBar = False
+    
     ' Ensure that all optimizations are turned back on
     OptimizeCodeExecution False
     
@@ -205,6 +209,8 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         IsProjectReview = True
                         DR = ws.Range("G3").Value
                     End If
+                    
+                    Exit For
                 End If
             Next ws
         End If
@@ -213,6 +219,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
+            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -226,6 +233,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
         Application.StatusBar = False
 
         ws.Activate
+        
 NextWorkbook:
     Next wb
     
@@ -242,6 +250,9 @@ Terminate:
 Debug.Print "Atualizar Mapa - Total execution time: "; Timer - temp
     
 CleanExit:
+
+    Application.StatusBar = False
+    
     ' Ensure that all optimizations are turned back on
     OptimizeCodeExecution False
     
@@ -321,6 +332,8 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         IsProjectReview = True
                         DR = ws.Range("G3").Value
                     End If
+                    
+                    Exit For
                 End If
             Next ws
         End If
@@ -329,6 +342,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
+            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -342,6 +356,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
         Application.StatusBar = False
 
         ws.Activate
+        
 NextWorkbook:
     Next wb
     
@@ -359,6 +374,9 @@ Terminate:
 Debug.Print "Atualizar ZTPP02 - Total execution time: "; Timer - temp
     
 CleanExit:
+    
+    Application.StatusBar = False
+    
     ' Ensure that all optimizations are turned back on
     OptimizeCodeExecution False
     
@@ -431,6 +449,8 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
                         PEPList(UBound(PEPList)) = PEP
                     End If
+                    
+                    Exit For
                 End If
             Next ws
         End If
@@ -439,6 +459,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
+            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -452,6 +473,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
         Application.StatusBar = False
 
         ws.Activate
+        
 NextWorkbook:
     Next wb
     
@@ -468,6 +490,9 @@ Terminate:
 Debug.Print "Atualizar CJI5 - Total execution time: "; Timer - temp
     
 CleanExit:
+
+    Application.StatusBar = False
+    
     ' Ensure that all optimizations are turned back on
     OptimizeCodeExecution False
     
@@ -540,6 +565,8 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
                         PEPList(UBound(PEPList)) = PEP
                     End If
+                    
+                    Exit For
                 End If
             Next ws
         End If
@@ -550,6 +577,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
+            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -557,9 +585,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
         If Not UpdateCJI3(wb, PEP) Then
             MsgBox "Não foi possível atualizar CJI3 de " & vbCrLf & wb.Name, vbInformation
         End If
-    
-        Application.StatusBar = False
-
+        
         ws.Activate
         
 NextWorkbook:
@@ -578,6 +604,9 @@ Terminate:
 Debug.Print "Atualizar CJI3 - Total execution time: "; Timer - temp
     
 CleanExit:
+
+    Application.StatusBar = False
+    
     ' Ensure that all optimizations are turned back on
     OptimizeCodeExecution False
     
@@ -1523,8 +1552,13 @@ ErrorSection = "Initialization"
     
     ' Set references to relevant worksheets
     Dim ws As Worksheet
-    Set ws = wb.Sheets(1)  ' Assume this function is called from the active sheet
-
+    
+    For Each ws In wb.Sheets
+        If InStr(1, LCase(ws.Name), "project review", vbTextCompare) > 0 Then
+            Exit For
+        End If
+    Next ws
+    
     ' Define rows and columns
     headerRow = 20
     lastCol = ws.Cells(headerRow, ws.Columns.Count).End(xlToLeft).Column
