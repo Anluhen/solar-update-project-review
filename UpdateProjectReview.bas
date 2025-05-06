@@ -42,7 +42,7 @@ ErrorSection = "SAPSetup"
     
         If response = vbCancel Then
             MsgBox "Execução terminada pelo usuário.", vbInformation
-            GoTo Terminate  ' Exit the function or sub
+            GoTo SuccessefulExit  ' Exit the function or sub
         End If
     Loop
 
@@ -86,7 +86,6 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
-            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -114,7 +113,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
 NextWorkbook:
     Next wb
     
-Terminate:
+SuccessefulExit:
     EndSAPScripting
     
     If NoProjectReviewFound Then
@@ -174,7 +173,7 @@ ErrorSection = "SAPSetup"
     
         If response = vbCancel Then
             MsgBox "Execução terminada pelo usuário.", vbInformation
-            GoTo Terminate  ' Exit the function or sub
+            GoTo SuccessefulExit  ' Exit the function or sub
         End If
     Loop
     
@@ -219,7 +218,6 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
-            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -237,7 +235,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
 NextWorkbook:
     Next wb
     
-Terminate:
+SuccessefulExit:
     EndSAPScripting
     
     If NoProjectReviewFound Then
@@ -297,7 +295,7 @@ ErrorSection = "SAPSetup"
     
         If response = vbCancel Then
             MsgBox "Execução terminada pelo usuário.", vbInformation
-            GoTo Terminate  ' Exit the function or sub
+            GoTo SuccessefulExit  ' Exit the function or sub
         End If
     Loop
     
@@ -342,7 +340,6 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
-            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -360,7 +357,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
 NextWorkbook:
     Next wb
     
-Terminate:
+SuccessefulExit:
     EndSAPScripting
     
     If NoProjectReviewFound Then
@@ -420,7 +417,7 @@ ErrorSection = "SAPSetup"
     
         If response = vbCancel Then
             MsgBox "Execução terminada pelo usuário.", vbInformation
-            GoTo Terminate  ' Exit the function or sub
+            GoTo SuccessefulExit  ' Exit the function or sub
         End If
     Loop
     
@@ -459,7 +456,6 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
-            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -477,7 +473,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
 NextWorkbook:
     Next wb
     
-Terminate:
+SuccessefulExit:
     EndSAPScripting
     
     If NoProjectReviewFound Then
@@ -536,7 +532,7 @@ ErrorSection = "SAPSetup"
     
         If response = vbCancel Then
             MsgBox "Execução terminada pelo usuário.", vbInformation
-            GoTo Terminate  ' Exit the function or sub
+            GoTo SuccessefulExit  ' Exit the function or sub
         End If
     Loop
     
@@ -577,7 +573,6 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
             GoTo NextWorkbook
         Else
             NoProjectReviewFound = False
-            GoTo Terminate
         End If
     
         Application.StatusBar = "Trabalhando em " & wb.Name
@@ -591,7 +586,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
 NextWorkbook:
     Next wb
     
-Terminate:
+SuccessefulExit:
     EndSAPScripting
     
     If NoProjectReviewFound Then
@@ -1275,7 +1270,7 @@ ErrorSection = "SAPNavigation"
     If session.findById("wnd[1]/usr/ctxtDY_FILENAME") Is Nothing Then
         session.findById("wnd[1]/tbar[0]/btn[0]").press
     End If
-    On Error GoTo ErrorHandler
+    On Error GoTo EmptyCJI5
     
     exportWbName = Replace(session.findById("wnd[1]/usr/ctxtDY_FILENAME").Text, "export", exportWbName)
     exportWbPath = session.findById("wnd[1]/usr/ctxtDY_PATH").Text
@@ -1288,9 +1283,11 @@ Debug.Print "SAP nav: " & Timer - temp
 temp = Timer
 
     If False Then
-ErrorHandler:
+EmptyCJI5:
+        On Error GoTo ErrorHandler
+ErrorSection = "EmptyCJI5"
         CJI5IsEmpty = True
-        On Error Resume Next
+        GoTo CleanExit
     End If
 
 ErrorSection = "ExportWorkbook"
