@@ -76,8 +76,6 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                     If UCase(ws.Range("G2").Value) = "DR" Then
                         DR = ws.Range("G3").Value
                     End If
-        
-                    Exit For ' Stop loop after finding the first matching sheet
                 
                 ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
                 
@@ -94,10 +92,13 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                     If UCase(ws.Range("F4").Value) = "DR" Then
                         DR = ws.Range("F5").Value
                     End If
-        
-                    Exit For ' Stop loop after finding the first matching sheet
                     
                 End If
+                
+                If PEP <> "" Then
+                    Exit For ' Stop loop after finding the first matching sheet
+                End If
+                
             Next ws
         End If
     
@@ -228,7 +229,6 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         DR = ws.Range("G3").Value
                     End If
                     
-                    Exit For
                 ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
                 
                     ' Check if E4 value is "PEP"
@@ -245,9 +245,12 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         DR = ws.Range("F5").Value
                     End If
         
-                    Exit For ' Stop loop after finding the first matching sheet
-                    
                 End If
+                
+                If PEP <> "" Then
+                    Exit For ' Stop loop after finding the first matching sheet
+                End If
+                
             Next ws
         End If
     
@@ -367,8 +370,7 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         IsProjectReview = True
                         DR = ws.Range("G3").Value
                     End If
-                    
-                    Exit For
+        
                 ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
                 
                     ' Check if E4 value is "PEP"
@@ -385,9 +387,12 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         DR = ws.Range("F5").Value
                     End If
         
-                    Exit For ' Stop loop after finding the first matching sheet
-                    
                 End If
+                
+                If PEP <> "" Then
+                    Exit For ' Stop loop after finding the first matching sheet
+                End If
+                
             Next ws
         End If
     
@@ -502,7 +507,6 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         PEPList(UBound(PEPList)) = PEP
                     End If
                     
-                    Exit For
                 ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
                 
                     ' Check if E4 value is "PEP"
@@ -522,6 +526,11 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                     Exit For ' Stop loop after finding the first matching sheet
                     
                 End If
+                
+                If PEP <> "" Then
+                    Exit For ' Stop loop after finding the first matching sheet
+                End If
+                
             Next ws
         End If
     
@@ -635,7 +644,6 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         PEPList(UBound(PEPList)) = PEP
                     End If
                     
-                    Exit For
                 ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
                 
                     ' Check if E4 value is "PEP"
@@ -652,9 +660,12 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                         DR = ws.Range("F5").Value
                     End If
         
-                    Exit For ' Stop loop after finding the first matching sheet
-                    
                 End If
+                
+                If PEP <> "" Then
+                    Exit For ' Stop loop after finding the first matching sheet
+                End If
+                
             Next ws
         End If
     
@@ -1850,3 +1861,5 @@ Function OptimizeCodeExecution(enable As Boolean)
         End If
     End With
 End Function
+
+
