@@ -1388,7 +1388,7 @@ temp = Timer
 EmptyCJI5:
         On Error GoTo ErrorHandler
 ErrorSection = "EmptyCJI5"
-        CJI5IsEmpty = True
+        UpdateCJI5 = False
         GoTo CleanExit
     End If
 
@@ -1396,10 +1396,6 @@ ErrorSection = "ExportWorkbook"
 
     ' Wait for a new workbook to appear
     Do
-        If CJI5IsEmpty Then
-            Exit Do
-        End If
-        
     
         If Application.Workbooks.Count > wbCount Then
             ' Name of the workbook to find
@@ -1538,7 +1534,9 @@ temp = Timer
     session.findById("wnd[0]/usr/ctxtP_DISVAR").SetFocus
     session.findById("wnd[0]/usr/ctxtP_DISVAR").caretPosition = 12
     session.findById("wnd[0]/tbar[1]/btn[8]").press
+    On Error GoTo EmptyCJI3
     session.findById("wnd[0]/tbar[1]/btn[43]").press
+    On Error GoTo ErrorHandler
     
     ' Close the file extension pop-up
     On Error Resume Next
@@ -1556,6 +1554,14 @@ temp = Timer
 Debug.Print "SAP nav: " & Timer - temp
 temp = Timer
 
+    If False Then
+EmptyCJI3:
+        On Error GoTo ErrorHandler
+ErrorSection = "EmptyCJI3"
+        UpdateCJI3 = False
+        GoTo CleanExit
+    End If
+    
 ErrorSection = "ExportWorkbook"
 
     ' Wait for a new workbook to appear
