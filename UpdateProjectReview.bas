@@ -78,6 +78,25 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                     End If
         
                     Exit For ' Stop loop after finding the first matching sheet
+                
+                ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
+                
+                    ' Check if E4 value is "PEP"
+                    If UCase(ws.Range("E4").Value) = "PEP" Then
+                        IsProjectReview = True
+                        PEP = ws.Range("E5").Value
+                        
+                        ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
+                        PEPList(UBound(PEPList)) = PEP
+                    End If
+                    
+                    ' Check if G2 value is "DR"
+                    If UCase(ws.Range("F4").Value) = "DR" Then
+                        DR = ws.Range("F5").Value
+                    End If
+        
+                    Exit For ' Stop loop after finding the first matching sheet
+                    
                 End If
             Next ws
         End If
@@ -210,6 +229,24 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                     End If
                     
                     Exit For
+                ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
+                
+                    ' Check if E4 value is "PEP"
+                    If UCase(ws.Range("E4").Value) = "PEP" Then
+                        IsProjectReview = True
+                        PEP = ws.Range("E5").Value
+                        
+                        ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
+                        PEPList(UBound(PEPList)) = PEP
+                    End If
+                    
+                    ' Check if G2 value is "DR"
+                    If UCase(ws.Range("F4").Value) = "DR" Then
+                        DR = ws.Range("F5").Value
+                    End If
+        
+                    Exit For ' Stop loop after finding the first matching sheet
+                    
                 End If
             Next ws
         End If
@@ -332,6 +369,24 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                     End If
                     
                     Exit For
+                ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
+                
+                    ' Check if E4 value is "PEP"
+                    If UCase(ws.Range("E4").Value) = "PEP" Then
+                        IsProjectReview = True
+                        PEP = ws.Range("E5").Value
+                        
+                        ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
+                        PEPList(UBound(PEPList)) = PEP
+                    End If
+                    
+                    ' Check if G2 value is "DR"
+                    If UCase(ws.Range("F4").Value) = "DR" Then
+                        DR = ws.Range("F5").Value
+                    End If
+        
+                    Exit For ' Stop loop after finding the first matching sheet
+                    
                 End If
             Next ws
         End If
@@ -448,6 +503,24 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                     End If
                     
                     Exit For
+                ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
+                
+                    ' Check if E4 value is "PEP"
+                    If UCase(ws.Range("E4").Value) = "PEP" Then
+                        IsProjectReview = True
+                        PEP = ws.Range("E5").Value
+                        
+                        ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
+                        PEPList(UBound(PEPList)) = PEP
+                    End If
+                    
+                    ' Check if G2 value is "DR"
+                    If UCase(ws.Range("F4").Value) = "DR" Then
+                        DR = ws.Range("F5").Value
+                    End If
+        
+                    Exit For ' Stop loop after finding the first matching sheet
+                    
                 End If
             Next ws
         End If
@@ -563,6 +636,24 @@ ErrorSection = "WorkbookSearchFor-" & wb.Name
                     End If
                     
                     Exit For
+                ElseIf InStr(1, LCase(ws.Name), "ata", vbTextCompare) > 0 Then
+                
+                    ' Check if E4 value is "PEP"
+                    If UCase(ws.Range("E4").Value) = "PEP" Then
+                        IsProjectReview = True
+                        PEP = ws.Range("E5").Value
+                        
+                        ReDim Preserve PEPList(UBound(PEPList) + 1)  ' Resize array dynamically
+                        PEPList(UBound(PEPList)) = PEP
+                    End If
+                    
+                    ' Check if G2 value is "DR"
+                    If UCase(ws.Range("F4").Value) = "DR" Then
+                        DR = ws.Range("F5").Value
+                    End If
+        
+                    Exit For ' Stop loop after finding the first matching sheet
+                    
                 End If
             Next ws
         End If
