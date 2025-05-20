@@ -1189,14 +1189,24 @@ ErrorSection = "SAPNavigation"
     End If
     On Error GoTo ErrorHandler
     
+    On Error GoTo EmptyZTPP092
     exportWbName = Replace(session.findById("wnd[1]/usr/ctxtDY_FILENAME").Text, "export", exportWbName)
     exportWbPath = session.findById("wnd[1]/usr/ctxtDY_PATH").Text
+    On Error GoTo ErrorHandler
     
     session.findById("wnd[1]/usr/ctxtDY_FILENAME").Text = exportWbName
     session.findById("wnd[1]/tbar[0]/btn[11]").press
 
 Debug.Print "SAP nav: " & Timer - temp
 temp = Timer
+
+    If False Then
+EmptyZTPP092:
+        On Error GoTo ErrorHandler
+ErrorSection = "EmptyZTPP092"
+        UpdateZTPP092 = False
+        GoTo CleanExit
+    End If
 
 ErrorSection = "ExportWorkbook"
 
